@@ -2,7 +2,6 @@ package guardiangear.raidan.com.guardiangear;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.wearable.activity.WatchActivity;
 import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
 import android.widget.TextView;
@@ -21,7 +20,8 @@ public class WearActivity  extends Activity {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
                 mTextView = (TextView) stub.findViewById(R.id.text);
-                Log.d(TAG, "TextView: " + mTextView.getText() + " view=" + mTextView);
+                Log.d("Log","TextView: " + mTextView.getText() + " view=" + mTextView);
+
             }
         });
     }
