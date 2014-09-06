@@ -1,14 +1,16 @@
 package guardiangear.raidan.com.guardiangear;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.wearable.activity.WatchActivity;
 import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
 import android.widget.TextView;
 
-public class WearActivity  extends WatchActivity {
+public class WearActivity  extends Activity {
 
     private TextView mTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

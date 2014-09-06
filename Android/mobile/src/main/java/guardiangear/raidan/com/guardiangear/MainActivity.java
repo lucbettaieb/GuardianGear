@@ -29,6 +29,10 @@ public class MainActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            //TODO: show settings screen
+            //settings screen has option to change emergency contact number
+            //DO NOT DEFAULT THIS TO 911 FOR TESTING
+
             return true;
         }
         return super.onOptionsItemSelected(item);
