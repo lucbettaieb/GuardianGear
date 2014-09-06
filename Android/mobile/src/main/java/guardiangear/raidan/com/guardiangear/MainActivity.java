@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class MainActivity extends Activity {
@@ -29,6 +30,7 @@ public class MainActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            setContentView(R.layout.settingsscrn);
             //TODO: show settings screen
             //settings screen has option to change emergency contact number
             //DO NOT DEFAULT THIS TO 911 FOR TESTING
