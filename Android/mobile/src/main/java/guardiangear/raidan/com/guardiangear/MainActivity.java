@@ -1,10 +1,12 @@
 package guardiangear.raidan.com.guardiangear;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.Button;
 
 
 public class MainActivity extends Activity {
@@ -31,12 +33,35 @@ public class MainActivity extends Activity {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             setContentView(R.layout.settingsscrn);
-            //TODO: show settings screen
-            //settings screen has option to change emergency contact number
-            //DO NOT DEFAULT THIS TO 911 FOR TESTING
 
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void beginCountdown(){
+        //TODO: 10 second countdown before emergencyNumber is dialed
+        //TODO: add obnoxious noise
+        final Button bigButton = (Button) findViewById(R.id.bigButton);
+        bigButton.setBackgroundColor(Color.RED);
+        new CountDownTimer(10000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                String text = "Seconds remaining: " + millisUntilFinished / 1000;
+                text +=  "\nuntil dialing emergency number!";
+                text += "\n\n\n Press button to cancel!";
+                bigButton.setText(text);
+            }
+
+            public void onFinish() {
+                bigButton.setText("Calling Emergency Number!");
+                dial();
+            }
+        }.start();
+    }//end of beginCountdown method
+
+    public void dial(){
+        //TODO: dial the emergencyNumber
+    }
+
 }

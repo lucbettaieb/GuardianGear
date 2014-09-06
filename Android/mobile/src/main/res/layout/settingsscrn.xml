@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:inputType="phone"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/phoneText"
         android:layout_gravity="center_horizontal"
         android:phoneNumber="true"
         android:enabled="true"
@@ -26,7 +26,8 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:id="@+id/layout">
 
         <Button
             android:layout_width="0dp"
