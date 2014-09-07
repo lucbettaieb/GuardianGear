@@ -1,17 +1,33 @@
 package guardiangear.raidan.com.guardiangear;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
 
 
 public class MainActivity extends Activity {
+
+    boolean countdownBegun = false;
+    int emergencyNumber = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences prefs = this.getSharedPreferences("com.raidan.guardiangear", Context.MODE_PRIVATE);
+        emergencyNumber = prefs.getInt("Emergency_Phone_Number",8675309);
+        final Button bigButton = (Button) findViewById(R.id.bigButton);
+        bigButton.setText("Call Emergency Number\n"+emergencyNumber);
     }
 
 
@@ -29,12 +45,36 @@ public class MainActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            //TODO: show settings screen
-            //settings screen has option to change emergency contact number
-            //DO NOT DEFAULT THIS TO 911 FOR TESTING
-
+            Intent myIntent = new Intent(this, SettingsScreen.class);
+            this.startActivity(myIntent);
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void beginCountdown(){
+        if(countdownBegun) return;
+        //TODO: add obnoxious noise
+        final Button bigButton = (Button) findViewById(R.id.bigButton);
+        bigButton.setBackgroundColor(Color.RED);
+        new CountDownTimer(10000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                String text = "Seconds remaining: " + millisUntilFinished / 1000;
+                text +=  "\nuntil dialing emergency number!";
+                text += "\n\n\n Press button to cancel!";
+                bigButton.setText(text);
+            }
+            public void onFinish() {
+                bigButton.setText("Calling Emergency Number!");
+                dial();
+            }
+        }.start();
+    }//end of beginCountdown method
+
+    public void dial(){
+        //TODO: dial the emergencyNumber
+        Uri number = Uri.parse("tel:"+emergencyNumber);
+        Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+        startActivity(callIntent);
     }
 }
