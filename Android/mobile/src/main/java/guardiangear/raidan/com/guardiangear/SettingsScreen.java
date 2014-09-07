@@ -10,11 +10,10 @@ import android.view.View;
 import android.widget.EditText;
 
 
-
 public class SettingsScreen extends Activity {
 
 
-    int emergencyNumber;
+    String emergencyNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,10 +21,8 @@ public class SettingsScreen extends Activity {
         setContentView(R.layout.settingsscrn);
 
         SharedPreferences prefs = this.getSharedPreferences("com.raidan.guardiangear", Context.MODE_PRIVATE);
-        emergencyNumber = prefs.getInt("Emergency_Phone_Number",-1);
+        emergencyNumber = prefs.getString("Emergency_Phone_Number_String","");
     }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -41,10 +38,10 @@ public class SettingsScreen extends Activity {
         if(v.getId() == findViewById(R.id.saveButton).getId()){
             Log.d("Error","Save Button Pressed!!!");
             //TODO: make the emergencyNumber a saved piece of data
-            emergencyNumber = Integer.parseInt(((EditText) findViewById(R.id.phoneText)).getText().toString());
+            emergencyNumber = ((EditText) findViewById(R.id.phoneText)).getText().toString();
             SharedPreferences prefs = this.getSharedPreferences("com.raidan.guardiangear", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();
-            editor.putInt("Emergency_Phone_Number", emergencyNumber);
+            editor.putString("Emergency_Phone_Number_String", emergencyNumber);
             editor.commit();
             finish();
         }

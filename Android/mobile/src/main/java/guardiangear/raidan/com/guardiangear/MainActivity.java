@@ -10,14 +10,14 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 
 public class MainActivity extends Activity {
 
     boolean countdownBegun = false;
-    int emergencyNumber = 0;
+    String emergencyNumber = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences prefs = this.getSharedPreferences("com.raidan.guardiangear", Context.MODE_PRIVATE);
-        emergencyNumber = prefs.getInt("Emergency_Phone_Number",8675309);
+        emergencyNumber = prefs.getString("Emergency_Phone_Number_String","");
         final Button bigButton = (Button) findViewById(R.id.bigButton);
         bigButton.setText("Call Emergency Number\n"+emergencyNumber);
     }
@@ -52,9 +52,13 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void crash(View v){
+        beginCountdown();
+    }
+
     public void beginCountdown(){
         if(countdownBegun) return;
-        //TODO: add obnoxious noise
+        countdownBegun = true;
         final Button bigButton = (Button) findViewById(R.id.bigButton);
         bigButton.setBackgroundColor(Color.RED);
         new CountDownTimer(10000, 1000) {
