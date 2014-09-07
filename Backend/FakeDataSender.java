@@ -89,7 +89,7 @@ public class FakeDataSender {
         
         Thread.sleep(1000);
         
-        chunk.put("AccelX", 21.9 * 20);      //Crash
+        chunk.put("AccelX", 21.9 * 10);      //Crash
         chunk.put("AccelY", 21.9 * 0.1);
         chunk.put("AccelZ", 21.9 * 0.1);
         chunk.put("Heartrate", 200.0);

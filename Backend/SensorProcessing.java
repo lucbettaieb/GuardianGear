@@ -26,31 +26,7 @@ public class SensorProcessing {
    
     public static void main(String[] kittens) throws InterruptedException{
         final Firebase dataStore = new Firebase("https://guardiangear.firebaseio.com/message");
-//        
-//        final List<Double> accel = new LinkedList<Double>();
-//        accel.add(21.9* 2); 
-//        accel.add(21.9* 2);
-//        accel.add(21.9* 2);
-//        accel.add(21.9* 2);
-//        accel.add(21.9* 100);
-//        accel.add(21.9* 20);
-//        accel.add(21.9* 0);
-//        accel.add(21.9* 4);
-//        accel.add(21.9* 2);
-//        accel.add(21.9* 8);
-//        
-//        final List<Double> heartRates = new LinkedList<Double>();
-//        heartRates.add(70.0);
-//        heartRates.add(75.0);
-//        heartRates.add(70.0);
-//        heartRates.add(66.0);
-//        heartRates.add(70.0);
-//        heartRates.add(75.0);
-//        heartRates.add(90.0);
-//        heartRates.add(120.0);
-//        heartRates.add(130.0);
-//        heartRates.add(130.0);
-//    
+        
         while (true) {
           dataStore.addValueEventListener(new ValueEventListener() {
 			@Override
