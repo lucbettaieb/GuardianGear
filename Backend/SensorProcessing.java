@@ -25,32 +25,32 @@ public class SensorProcessing {
     
    
     public static void main(String[] kittens) throws InterruptedException{
-        Firebase dataStore = new Firebase("https://blistering-torch-5374.firebaseio.com/message");
-        
-        final List<Double> accel = new LinkedList<Double>();
-        accel.add(21.9* 2); 
-        accel.add(21.9* 2);
-        accel.add(21.9* 2);
-        accel.add(21.9* 2);
-        accel.add(21.9* 100);
-        accel.add(21.9* 20);
-        accel.add(21.9* 0);
-        accel.add(21.9* 4);
-        accel.add(21.9* 2);
-        accel.add(21.9* 8);
-        
-        final List<Double> heartRates = new LinkedList<Double>();
-        heartRates.add(70.0);
-        heartRates.add(75.0);
-        heartRates.add(70.0);
-        heartRates.add(66.0);
-        heartRates.add(70.0);
-        heartRates.add(75.0);
-        heartRates.add(90.0);
-        heartRates.add(120.0);
-        heartRates.add(130.0);
-        heartRates.add(130.0);
-    
+        final Firebase dataStore = new Firebase("https://guardiangear.firebaseio.com/message");
+//        
+//        final List<Double> accel = new LinkedList<Double>();
+//        accel.add(21.9* 2); 
+//        accel.add(21.9* 2);
+//        accel.add(21.9* 2);
+//        accel.add(21.9* 2);
+//        accel.add(21.9* 100);
+//        accel.add(21.9* 20);
+//        accel.add(21.9* 0);
+//        accel.add(21.9* 4);
+//        accel.add(21.9* 2);
+//        accel.add(21.9* 8);
+//        
+//        final List<Double> heartRates = new LinkedList<Double>();
+//        heartRates.add(70.0);
+//        heartRates.add(75.0);
+//        heartRates.add(70.0);
+//        heartRates.add(66.0);
+//        heartRates.add(70.0);
+//        heartRates.add(75.0);
+//        heartRates.add(90.0);
+//        heartRates.add(120.0);
+//        heartRates.add(130.0);
+//        heartRates.add(130.0);
+//    
         while (true) {
           dataStore.addValueEventListener(new ValueEventListener() {
 			@Override
@@ -80,11 +80,6 @@ public class SensorProcessing {
 				
 					}
                                         
-                                        Collections.sort(x);
-                                        Collections.sort(y);
-                                        Collections.sort(z);
-                                        Collections.sort(hr);
-                                        
                                         System.out.println("X: "+x.toString());
                                         System.out.println("Y: "+y.toString());
                                         System.out.println("Z: "+z.toString());
@@ -101,6 +96,35 @@ public class SensorProcessing {
                                         System.out.println("BelCrash accd Y: " + accelY.belImpact());
                                         System.out.println("BelCrash accd Z: " + accelZ.belImpact());
                                         System.out.println("BelCrash accd HR: " + heartrate.belImpact());
+                                        
+                                        //Combining sensor data
+                                        
+                                        //Test to see which of the acceleration values are the largest
+                                        double bigXY = Math.max(accelX.belImpact(), accelY.belImpact());
+                                        double bigXYZ = Math.max(bigXY, accelZ.belImpact());
+                                         
+                                        //Big XYZ now has the most importance
+                                        //Now we must compare the most relevant axis of accelerometer data to the heart rate data
+                                        System.out.println(bigXY);
+                                        System.out.println(bigXYZ);
+                                        if(bigXYZ >= .6 && heartrate.belImpact() >=.6){
+                                            if(((bigXYZ - .10 <= heartrate.belImpact()) && (bigXYZ + .10 >= heartrate.belImpact()))
+                                                    ||
+                                            (((heartrate.belImpact() - .10) <= bigXYZ) && ((heartrate.belImpact() + .10) >= bigXYZ))){
+                                                //Crash has occured
+                                                //Send crash signal
+                                                System.out.println("There has been a potential incident.  Calling emergency contact.");
+                                                dataStore.getParent().child("emergency").setValue("true");
+                                            
+                                            }
+                                            else {
+                                                dataStore.getParent().child("emergency").setValue("false");
+                                            }
+                                        }
+                                        else {
+                                            dataStore.getParent().child("emrgency").setValue("false");
+                                        }
+                                        
                                     try {
                                         Thread.sleep(1000);
                                     } catch (InterruptedException ex) {
