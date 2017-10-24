@@ -1,4 +1,4 @@
 GuardianGear
 ============
 
-MHacks 2014 safety device to not die in a car crash.
+MHacks 2014 safety device to die in a car crash.
