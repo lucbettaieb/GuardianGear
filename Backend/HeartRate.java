@@ -11,6 +11,8 @@ import java.util.List;
  * 
  * Uses a Bayseian probability algorithm to determine the probability
  * of a car crash based on heart rate spikes
+ *
+ * Plot twist; I had no idea what I was doing - Luc Bettaieb, 2017
  */
 public class HeartRate {
     //Experimentally derived probability constant 
